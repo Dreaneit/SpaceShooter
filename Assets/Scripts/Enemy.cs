@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
     private float _speed = 4f;
     private float _fireRate = 1.0f;
     private float _canFire = -1f;
-    private Player _player;
+    private Player _playerOne;
+    private Player _playerTwo;
 
     [SerializeField]
     private GameObject _laserPreFab;
@@ -23,13 +24,17 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("Player").GetComponent<Player>();
+        _playerOne = GameObject.Find("Player_1").GetComponent<Player>();
+        _playerTwo = GameObject.Find("Player_2").GetComponent<Player>();
         _animator = gameObject.GetComponent<Animator>();
         _collider = gameObject.GetComponent<BoxCollider2D>();
         audioSource = GetComponent<AudioSource>();
 
-        if (_player == null)
-            Debug.LogError("_player is null");
+        if (_playerOne == null)
+            Debug.LogError("_playerOne is null");
+
+        if (_playerTwo == null)
+            Debug.LogError("_playerOne is null");
 
         if (_animator == null)
             Debug.LogError("Animator is null");
@@ -111,7 +116,7 @@ public class Enemy : MonoBehaviour
             audioSource.Play();
             Destroy(this.gameObject, destroyAnimDuration);
 
-            _player.IncreaseScore();
+            _playerOne.IncreaseScore();
         }
     }
 

@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private Transform _shieldProtection;
     private Transform _leftEngineDamage;
     private Transform _rightEngineDamage;
+    private Transform _turnLeft;
+    private Transform _turnRight;
     private int _score;
     [SerializeField]
     private AudioClip laserShotClip;
@@ -34,15 +36,18 @@ public class Player : MonoBehaviour
     private GameObject playerOne = null;
     private GameObject playerTwo = null;
 
+    private SpriteRenderer _sprite;
+
     // Start is called before the first frame update
     void Start()
     {
-        playerOne = GameObject.Find("Player_1").GetComponent<GameObject>();
-        playerTwo = GameObject.Find("Player_2").GetComponent<GameObject>();
-
         _shieldProtection = gameObject.transform.Find("Shield_protection");
         _rightEngineDamage = gameObject.transform.Find("Right_Engine_Fire");
         _leftEngineDamage = gameObject.transform.Find("Left_Engine_Fire");
+        _turnLeft = gameObject.transform.Find("Turn_Left");
+        _turnRight = gameObject.transform.Find("Turn_Right");
+
+        _sprite = gameObject.GetComponent<SpriteRenderer>();
 
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
@@ -103,7 +108,7 @@ public class Player : MonoBehaviour
             HandlePlayerOneMovement();
             HandleBounds();
 
-            HandleFire(KeyCode.RightShift);
+            HandleFire(KeyCode.KeypadEnter);
         }
     }
 
@@ -147,6 +152,9 @@ public class Player : MonoBehaviour
 
     public void HandlePlayerTwoMovement()
     {
+        PlayerMoveAnimation(KeyCode.A, _turnLeft);
+        PlayerMoveAnimation(KeyCode.D, _turnRight);
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             float horizontalInput = Input.GetAxis("P2_Horizontal");
@@ -160,15 +168,32 @@ public class Player : MonoBehaviour
 
     void HandlePlayerOneMovement()
     {
+        PlayerMoveAnimation(KeyCode.LeftArrow, _turnLeft);
+        PlayerMoveAnimation(KeyCode.RightArrow, _turnRight);
+
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
-            Debug.Log("playerOne");
-
+                
             Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
             ////deltaTime - realtime
             this.transform.Translate(direction * _speed * Time.deltaTime);
+        }
+    }
+
+    public void PlayerMoveAnimation(KeyCode moveDirection, Transform animation)
+    {
+        if (Input.GetKeyDown(moveDirection))
+        {
+            _sprite.enabled = false;
+            animation.gameObject.SetActive(true);
+        }
+
+        if (Input.GetKeyUp(moveDirection))
+        {
+            animation.gameObject.SetActive(false);
+            _sprite.enabled = true;
         }
     }
     #endregion

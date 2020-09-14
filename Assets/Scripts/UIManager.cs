@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     private Image _livesDisplay;
     [SerializeField]
     private Sprite[] _liveSprites;
+    [SerializeField]
+    private Image _pauseMenu;
 
     private GameManager _gameManager;
 
@@ -41,6 +43,18 @@ public class UIManager : MonoBehaviour
             _gameManager.GameOver();
             StartCoroutine(DisplayGameOverTextRoutine());
         }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        _pauseMenu.gameObject.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        _pauseMenu.gameObject.SetActive(false);
     }
 
     IEnumerator DisplayGameOverTextRoutine()

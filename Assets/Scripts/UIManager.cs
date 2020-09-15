@@ -45,15 +45,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void PauseGame()
+    public void ShowPauseMenu()
     {
-        Time.timeScale = 0f;
         _pauseMenu.gameObject.SetActive(true);
     }
 
-    public void ResumeGame()
+    public void HidePauseMenu()
     {
-        Time.timeScale = 1f;
         _pauseMenu.gameObject.SetActive(false);
     }
 

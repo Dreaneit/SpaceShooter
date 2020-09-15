@@ -1994,7 +1994,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Main Menu
+  m_Text: Resume Game
 --- !u!222 &1462832529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2714,7 +2714,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Resume Game
+  m_Text: Main Menu
 --- !u!222 &1977791020
 CanvasRenderer:
   m_ObjectHideFlags: 0

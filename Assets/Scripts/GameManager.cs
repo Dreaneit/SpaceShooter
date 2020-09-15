@@ -36,13 +36,30 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            _uiManager.PauseGame();
+            PauseGame();
         }
     }
 
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void PauseGame()
+    {
+        SetTimeScale(0f);
+        _uiManager.ShowPauseMenu();
+    }
+
+    public void ResumeGame()
+    {
+        SetTimeScale(1f);
+        _uiManager.HidePauseMenu();
+    }
+
+    public void SetTimeScale(float time)
+    {
+        Time.timeScale = time;
     }
 
     public void GameOver()

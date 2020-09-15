@@ -235,6 +235,7 @@ public class Player : MonoBehaviour
         _spawnManager.StopSpawnEnemy();
         _spawnManager.StopSpawnPowerupShot();
         Destroy(this.gameObject);
+        _uIManager.CheckForBestScore();
     }
     #endregion
 

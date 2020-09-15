@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour
     public bool _isGameOver;
     public bool isCoopMode = false;
     private UIManager _uiManager;
+    private Animator _pauseMenuAnimator;
 
     void Start()
     {
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _pauseMenuAnimator = GameObject.Find("Pause_Menu_Panel").GetComponent<Animator>();
     }
 
     void Update()
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         SetTimeScale(0f);
         _uiManager.ShowPauseMenu();
+        _pauseMenuAnimator.SetBool("isPauseMenu", true);
     }
 
     public void ResumeGame()

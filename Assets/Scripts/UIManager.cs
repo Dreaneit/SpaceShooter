@@ -26,9 +26,11 @@ public class UIManager : MonoBehaviour
     {
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _score.text = "Score: " + 0;
-        _bestText.text = "Best: " + _bestScore;
         _gameOver.gameObject.SetActive(false);
         _restart.gameObject.SetActive(false);
+
+        _bestScore = PlayerPrefs.GetInt("BestScore");
+        _bestText.text = "Best: " + _bestScore;
     }
 
     public void IncreaseScore(int score)
@@ -42,6 +44,7 @@ public class UIManager : MonoBehaviour
         if (_actualScore > _bestScore)
         {
             _bestScore = _actualScore;
+            PlayerPrefs.SetInt("BestScore", _bestScore);
             _bestText.text = "Best: " + _bestScore;
         }
     }
